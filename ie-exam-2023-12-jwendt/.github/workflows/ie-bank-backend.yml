@@ -112,10 +112,23 @@ deploy:
     steps:
       # Exercise IV
       # GitHub action: Write download build artifact
+        name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: backend-artifact
+          path: ./backend
     
       # Exercise IV
       # GitHub action: Write step to login in to Azure. You can use the repository secret AZURE_CREDENTIALS
+        name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Exercise IV
       # GitHub action: Write step to deploy the downloaded artifact to your Azure web app
-    
+        name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.BACKEND_WEBAPP_DEV }}
+          package: ./backend
