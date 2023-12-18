@@ -10,12 +10,17 @@ on:
 env:
   RESOURCE_GROUP_DEV: aguadamillas_students_2
   SUBSCRIPTION_ID_DEV: e0b9cada-61bc-4b5a-bd7a-52c606726b3b
-  USER_ALIAS: #Add your student alias here
+  USER_ALIAS: jwendt #Add your student alias here
 
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # Exercise II
+      # GitHub action: Write step to checkout code
+      name: Checkout code
+      uses: actions/checkout@v2
+
       # Exercise II
       # GitHub action: Write step to checkout code
 
@@ -31,10 +36,17 @@ jobs:
     steps:
       # Exercise II
       # GitHub action: Write step to checkout code
+      name: Checkout code
+      uses: actions/checkout@v2
     
       # Exercise II
       # GitHub action: Write step to login in to Azure. You can use the repository secret AZURE_CREDENTIALS
+      name: Login to Azure
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       # Exercise II
       # GitHub action: Write step to deploy main.bicep file to Azure. You can use the repository secrets DBPASS and DBUSER.
       # Recommended to use your student alias to set the deployment name to avoid conflicts with other student's deployments
+      working-directory: ./infra
